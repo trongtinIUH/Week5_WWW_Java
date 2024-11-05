@@ -69,7 +69,7 @@ public class CandidateController {
     public String loginCandidate(@RequestParam("email") String email, Model model) {
         Candidate candidate = candidateServices.findByEmail(email);
         if (candidate == null) {
-            model.addAttribute("error", "No candidate found with this email.");
+            model.addAttribute("error", "Email không tồn tại. Vui lòng thử lại.");
             return "login";
         }
 
