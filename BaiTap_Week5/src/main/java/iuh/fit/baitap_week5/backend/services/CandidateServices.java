@@ -1,6 +1,7 @@
 package iuh.fit.baitap_week5.backend.services;
 
 import iuh.fit.baitap_week5.backend.models.Candidate;
+import iuh.fit.baitap_week5.backend.models.Skill;
 import iuh.fit.baitap_week5.backend.reponsitories.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -32,5 +33,9 @@ public class CandidateServices {
 
     public List<Candidate> findCandidatesBySkill(String skillName) {
         return candidateRepository.findCandidatesBySkill(skillName);
+    }
+
+    public List<Skill> getSuggestedSkillsForCandidate(String email) {
+        return candidateRepository.getSuggestedSkillsForCandidate(email);
     }
 }

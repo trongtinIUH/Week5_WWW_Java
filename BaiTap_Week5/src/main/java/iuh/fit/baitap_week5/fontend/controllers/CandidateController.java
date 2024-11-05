@@ -2,6 +2,7 @@ package iuh.fit.baitap_week5.fontend.controllers;
 
 import iuh.fit.baitap_week5.backend.models.Candidate;
 import iuh.fit.baitap_week5.backend.models.Job;
+import iuh.fit.baitap_week5.backend.models.Skill;
 import iuh.fit.baitap_week5.backend.reponsitories.CandidateRepository;
 import iuh.fit.baitap_week5.backend.services.CandidateServices;
 import iuh.fit.baitap_week5.backend.services.JobServices;
@@ -93,6 +94,27 @@ public class CandidateController {
         model.addAttribute("UngVienPhuHop", candidates);
         model.addAttribute("skillName", skillName);
         return "sugggested-skill-search";
+    }
+
+
+    //câu 7
+    @GetMapping("/candidate/login_learnSkill")
+    public String showLoginForm_Learn() {
+        return "login_learn"; // tên template của trang đăng nhập
+    }
+
+    @PostMapping("/candidate/login_learnSkill")
+    public String loginCandidate_learn(@RequestParam("email") String email, Model model) {
+        Candidate candidate = candidateServices.findByEmail(email);
+        if (candidate == null) {
+            model.addAttribute("error", "Email không tồn tại. Vui lòng thử lại.");
+            return "login_learn"; // Quay lại trang đăng nhập nếu email không tồn tại
+        }
+
+        List<Skill> suggestedSkills = candidateServices.getSuggestedSkillsForCandidate(email);
+        model.addAttribute("suggestedSkills", suggestedSkills);
+        model.addAttribute("candidate", candidate);
+        return "suggested-learn-skill";
     }
 
 
