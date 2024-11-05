@@ -1,13 +1,16 @@
 package iuh.fit.baitap_week5.fontend.controllers;
 
 import iuh.fit.baitap_week5.backend.models.Candidate;
+import iuh.fit.baitap_week5.backend.models.Job;
 import iuh.fit.baitap_week5.backend.reponsitories.CandidateRepository;
 import iuh.fit.baitap_week5.backend.services.CandidateServices;
+import iuh.fit.baitap_week5.backend.services.JobServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,11 +26,16 @@ public class CandidateController {
     @Autowired
     private CandidateServices candidateServices;
 
-//    @GetMapping("/list")
-//    public String showCandidateList(Model model){
-//        model.addAttribute("candidates", candidateRepository.findAll());
-//        return "candidates/candidates";
-//    }
+    @Autowired
+    private JobServices jonServices;
+    @Autowired
+    private JobServices jobServices;
+
+    @GetMapping("/listkpt")
+    public String showCandidateList(Model model) {
+        model.addAttribute("candidates", candidateRepository.findAll());
+        return "candidates/candidates";
+    }
 
 
     //findall có phân trang
@@ -49,6 +57,28 @@ public class CandidateController {
         return "candidates/candidates-paging";
     }
 
+
+
+    @GetMapping("/candidate/login")
+    public String showLoginForm() {
+        return "login"; // tên template của trang đăng nhập
+    }
+
+    @PostMapping("/candidate/login")
+    public String loginCandidate(@RequestParam("email") String email, Model model) {
+        Candidate candidate = candidateServices.findByEmail(email);
+        if (candidate == null) {
+            model.addAttribute("error", "No candidate found with this email.");
+            return "login";
+        }
+
+        // Lấy danh sách công việc gợi ý dựa trên kỹ năng của ứng viên
+        List<Job> suggestedJobs = jobServices.findSuggestedJobsForCandidate(candidate);
+        model.addAttribute("candidate", candidate);
+        model.addAttribute("suggestedJobs", suggestedJobs);
+
+        return "suggested-jobs"; // Trang hiển thị danh sách công việc
+    }
 
 
 }

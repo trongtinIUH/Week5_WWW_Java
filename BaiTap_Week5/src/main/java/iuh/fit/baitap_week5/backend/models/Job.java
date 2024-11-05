@@ -24,4 +24,6 @@ public class Job {
     @JoinColumn(name = "company")
     private Company company;
 
+
+
 }
