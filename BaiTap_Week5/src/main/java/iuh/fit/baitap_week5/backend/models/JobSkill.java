@@ -28,4 +28,13 @@ public class JobSkill {
     @Column(name = "skill_level", nullable = false)
     private Byte skillLevel;
 
+    public JobSkill() {
+    }
+
+    public JobSkill(Job job, Skill skill, String moreInfos, Byte skillLevel) {
+        this.job = job;
+        this.skill = skill;
+        this.moreInfos = moreInfos;
+        this.skillLevel = skillLevel;
+    }
 }

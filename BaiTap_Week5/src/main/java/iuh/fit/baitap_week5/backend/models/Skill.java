@@ -23,4 +23,16 @@ public class Skill {
     @Column(name = "type")
     private Byte type;
 
+    public Skill(String skillName) {
+    }
+
+    public Skill() {
+
+    }
+
+    public Skill(String skillDescription, String skillName, Byte type) {
+        this.skillDescription = skillDescription;
+        this.skillName = skillName;
+        this.type = type;
+    }
 }

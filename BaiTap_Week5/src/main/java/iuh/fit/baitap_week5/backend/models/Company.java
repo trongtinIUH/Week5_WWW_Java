@@ -33,4 +33,10 @@ public class Company {
     @JoinColumn(name = "address", nullable = false)
     private Address address;
 
+    public Company(String compName) {
+    }
+
+    public Company() {
+
+    }
 }
