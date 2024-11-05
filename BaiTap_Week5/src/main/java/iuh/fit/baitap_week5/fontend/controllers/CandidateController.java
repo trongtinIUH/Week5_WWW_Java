@@ -81,4 +81,19 @@ public class CandidateController {
     }
 
 
+    //câu 6 tìm ứng viên có skill phù hợp
+    @GetMapping("/candidate/skill_search")
+    public String showSkillSearchForm() {
+        return "skill-search";
+    }
+
+    @PostMapping("/candidate/skill_search")
+    public String searchCandidateBySkill(@RequestParam("skillName") String skillName, Model model) {
+        List<Candidate> candidates = candidateServices.findCandidatesBySkill(skillName);
+        model.addAttribute("UngVienPhuHop", candidates);
+        model.addAttribute("skillName", skillName);
+        return "sugggested-skill-search";
+    }
+
+
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,9 @@ public class CandidateServices {
 
     public Candidate findByEmail(String email) {
         return candidateRepository.findByEmail(email);
+    }
+
+    public List<Candidate> findCandidatesBySkill(String skillName) {
+        return candidateRepository.findCandidatesBySkill(skillName);
     }
 }
