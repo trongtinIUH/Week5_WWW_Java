@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Trang chủ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .logout-section {
+            text-align: right;
+            margin: 20px;
+        }
+
+        .logout-section button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .login-success {
+            color: green;
+            margin-top: 10px;
+        }
+
+        .user-info {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-info p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .user-info strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Chào mừng đến với trang chủ!</h1>
+
+<!-- Nút Logout -->
+<div class="logout-section">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Đăng xuất</button>
+        <!-- Hiển thị thông báo đăng nhập thành công nếu có -->
+        <div class="login-success" th:if="${loginSuccess}" th:text="${loginSuccess}"></div>
+    </form>
+</div>
+
+<!-- Hiển thị thông tin người dùng -->
+<div class="user-info">
+    <h3 style="text-align: center">Thông tin người dùng</h3>
+    <p><strong>Họ và tên:</strong> <span th:text="${user.firstName} + ' ' + ${user.middleName} + ' ' + ${user.lastName}"></span></p>
+    <p><strong>Số điện thoại:</strong> <span th:text="${user.mobile}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+    <p><strong>Giới thiệu:</strong> <span th:text="${user.intro}"></span></p>
+</div>
+
+<div style="text-align: center; justify-content: space-between; margin-top: 20px; margin-right: 10px; font-size: 18px; color: #333; font-weight: bold;">
+    <a th:if="${user.id != null}" th:href="@{/update-user(id=${user.id})}"
+       style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px;">
+        Chỉnh sửa thông tin
+    </a>
+    <a href="/List_user" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px;">
+        Bài viết của tôi
+    </a>
+    <a href="/List_user" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">
+        Xem bài viết cộng đồng
+    </a>
+</div>
+
+
+
+<!--&lt;!&ndash; Script để hiển thị alert nếu cập nhật thành công &ndash;&gt;-->
+<!--<script th:inline="javascript">-->
+<!--    /*<![CDATA[*/-->
+<!--    if ("[[${capnhatthanhcong}]]" !== "") {-->
+<!--        alert('[[${capnhatthanhcong}]]');-->
+<!--    }-->
+<!--    /*]]>*/-->
+<!--</script>-->
+
+</body>
+</html>

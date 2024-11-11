@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tạo Bài Viết Mới</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<!-- Form để người dùng tạo bài viết mới -->
+<div class="create-post-container">
+    <h1>Tạo Bài Viết Mới</h1>
+    <form th:action="@{/posts/add}" method="post">
+        <!-- Tiêu đề -->
+        <div class="form-group">
+            <label for="title">Tiêu đề:</label>
+            <input type="text" id="title" name="title" required maxlength="75" placeholder="Nhập tiêu đề bài viết" />
+        </div>
+
+        <!-- Meta title -->
+        <div class="form-group">
+            <label for="metaTitle">Meta Tiêu đề:</label>
+            <input type="text" id="metaTitle" name="metaTitle" maxlength="100" placeholder="Nhập meta tiêu đề" />
+        </div>
+
+        <!-- Tóm tắt -->
+        <div class="form-group">
+            <label for="summary">Tóm tắt:</label>
+            <textarea id="summary" name="summary" rows="3" placeholder="Nhập tóm tắt bài viết"></textarea>
+        </div>
+
+        <!-- Nội dung bài viết -->
+        <div class="form-group">
+            <label for="content">Nội dung:</label>
+            <textarea id="content" name="content" rows="10" required placeholder="Nhập nội dung bài viết"></textarea>
+        </div>
+
+        <!-- Trạng thái (Published) -->
+        <div class="form-group">
+            <label for="published">Đăng bài:</label>
+            <input type="checkbox" id="published" name="published" />
+        </div>
+
+        <button type="submit">Đăng bài</button>
+    </form>
+</div>
+</body>
+</html>
