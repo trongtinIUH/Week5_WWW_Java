@@ -65,4 +65,8 @@ public class Post implements Serializable {
 
     public Post() {
     }
+
+    public void setUser(User user) {
+
+    }
 }

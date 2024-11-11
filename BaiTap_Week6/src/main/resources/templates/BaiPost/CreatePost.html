@@ -2,29 +2,93 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tạo Bài Viết Mới</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .create-post-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: left;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<!-- Form để người dùng tạo bài viết mới -->
+
 <div class="create-post-container">
     <h1>Tạo Bài Viết Mới</h1>
-    <form th:action="@{/posts/add}" method="post">
+    <form th:action="@{/post/create}" method="post">
+
+        <input type="hidden" th:value="${userId}" name="userId" />
+
         <!-- Tiêu đề -->
         <div class="form-group">
             <label for="title">Tiêu đề:</label>
             <input type="text" id="title" name="title" required maxlength="75" placeholder="Nhập tiêu đề bài viết" />
-        </div>
-
-        <!-- Meta title -->
-        <div class="form-group">
-            <label for="metaTitle">Meta Tiêu đề:</label>
-            <input type="text" id="metaTitle" name="metaTitle" maxlength="100" placeholder="Nhập meta tiêu đề" />
-        </div>
-
-        <!-- Tóm tắt -->
-        <div class="form-group">
-            <label for="summary">Tóm tắt:</label>
-            <textarea id="summary" name="summary" rows="3" placeholder="Nhập tóm tắt bài viết"></textarea>
         </div>
 
         <!-- Nội dung bài viết -->
@@ -35,12 +99,15 @@
 
         <!-- Trạng thái (Published) -->
         <div class="form-group">
-            <label for="published">Đăng bài:</label>
-            <input type="checkbox" id="published" name="published" />
+            <label for="published">
+                <input type="checkbox" id="published" name="published" />
+                Đăng bài: Công khai (Check) hoặc cá nhân
+            </label>
         </div>
 
         <button type="submit">Đăng bài</button>
     </form>
 </div>
+
 </body>
 </html>

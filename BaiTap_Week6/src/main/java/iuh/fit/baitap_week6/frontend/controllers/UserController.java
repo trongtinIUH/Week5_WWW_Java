@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Controller
@@ -37,36 +38,64 @@ public class UserController {
 
     @PostMapping("/update-user")
     public String updateUser(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) {
-        System.out.println("User ID: " + user.getId()); // Kiểm tra ID người dùng
-        System.out.println("Modified Password: " + user.getPasswordHash()); // Kiểm tra mật khẩu sau khi thay đổi
+        System.out.println("User ID: " + user.getId());
+        System.out.println("Original Password: " + user.getPasswordHash());
 
         if (user.getId() == null) {
             redirectAttributes.addFlashAttribute("capnhatthatbai", "Cập nhật thất bại: ID không hợp lệ.");
-            return "redirect:/update-user"; // Điều hướng lại trang cập nhật mà không có id
+            return "redirect:/update-user";
+        }
+        if (user.getRegisteredAt() == null) {
+            user.setRegisteredAt(Instant.now()); // Hoặc một giá trị hợp lệ khác
         }
 
         try {
-            // Xử lý thêm chuỗi `{troop}` vào trước mật khẩu
-            String originalPassword = user.getPasswordHash();
-            String modifiedPassword = "{noop}" + originalPassword;
-            user.setPasswordHash(modifiedPassword);
-
-            // Lưu người dùng
+            // Lưu người dùng (mã hóa trong User_Services)
             user_services.save(user);
 
-            // Thêm thông báo thành công vào RedirectAttributes
+            // Thêm thông báo thành công
             redirectAttributes.addFlashAttribute("capnhatthanhcong", "Cập nhật thành công!");
-
-            // Chuyển hướng về trang chủ sau khi cập nhật thành công
             return "redirect:/home";
         } catch (Exception e) {
-            // Nếu có lỗi, thêm thông báo thất bại vào RedirectAttributes
+            e.printStackTrace();
             redirectAttributes.addFlashAttribute("capnhatthatbai", "Cập nhật thất bại!");
             return "redirect:/update-user?id=" + user.getId();
         }
     }
 
 
+
+    @GetMapping("/register")
+    public String showRegisterForm() {
+        return "/register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@RequestParam("firstName") String firstName,
+                               @RequestParam("password") String password,
+                               @RequestParam("lastName") String lastName,
+                               @RequestParam("phone") String phone,
+                               @RequestParam("email") String email,
+                               Model model) {
+        User user = new User();
+
+        user.setPasswordHash(password);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setMobile(phone);
+        user.setEmail(email);
+        user.setRegisteredAt(Instant.now());
+
+        try {
+            user_services.save(user);
+            model.addAttribute("message", "Đăng ký thành công!");
+            return "login";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.addAttribute("error", "Đăng ký thất bại!");
+            return "register";
+        }
+    }
 
 
 

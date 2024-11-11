@@ -5,7 +5,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-image: url("https://images.rawpixel.com/image_social_portrait/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTEyL21vdGFybzdfOC1iaXRfcGl4ZWxfYXJ0XzJkX2lzX2Ffc2VhX3dpdGhfc3Vuc2V0X3Bhc3RlbF9jdXRlX3NoYV8yNDA1ZGY0YS1iMGNkLTQxMjQtODM5ZC05NWNkMWM4ZWEyMzdfMS5qcGc.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             margin: 0;
             padding: 0;
         }
@@ -57,6 +60,25 @@
         .user-info strong {
             font-weight: bold;
         }
+        .navigation-links {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .navigation-links a {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .navigation-links a:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -68,40 +90,38 @@
     <form th:action="@{/logout}" method="post">
         <button type="submit">Đăng xuất</button>
         <!-- Hiển thị thông báo đăng nhập thành công nếu có -->
-        <div class="login-success" th:if="${loginSuccess}" th:text="${loginSuccess}"></div>
+        <div class="login-success" style="font-weight: bold">Đang hoạt động</div>
     </form>
 </div>
 
 <!-- Hiển thị thông tin người dùng -->
 <div class="user-info">
     <h3 style="text-align: center">Thông tin người dùng</h3>
+    <img th:src="${user.profile}" alt="Ảnh đại diện" style="width: 100px; height: 100px; border-radius: 50%; display: block; margin: 0 auto;">
     <p><strong>Họ và tên:</strong> <span th:text="${user.firstName} + ' ' + ${user.middleName} + ' ' + ${user.lastName}"></span></p>
     <p><strong>Số điện thoại:</strong> <span th:text="${user.mobile}"></span></p>
     <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
     <p><strong>Giới thiệu:</strong> <span th:text="${user.intro}"></span></p>
 </div>
 
-<div style="text-align: center; justify-content: space-between; margin-top: 20px; margin-right: 10px; font-size: 18px; color: #333; font-weight: bold;">
-    <a th:if="${user.id != null}" th:href="@{/update-user(id=${user.id})}"
-       style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px;">
+<div class="navigation-links">
+    <a th:if="${user.id != null}" th:href="@{/update-user(id=${user.id})}">
         Chỉnh sửa thông tin
     </a>
-    <a href="/List_user" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px;">
-        Bài viết của tôi
-    </a>
-    <a href="/List_user" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">
-        Xem bài viết cộng đồng
-    </a>
+    <a th:href="@{/post/my-post(userId=${user.id})}">Bài viết của tôi</a>
+    <a th:href="@{/post/list-posts(userId=${user.id})}">Xem bài viết cộng đồng</a>
+    <a th:href="@{/post/create(userId=${user.id})}">Tạo bài viết mới</a>
 </div>
+
 
 
 
 <!--&lt;!&ndash; Script để hiển thị alert nếu cập nhật thành công &ndash;&gt;-->
 <!--<script th:inline="javascript">-->
 <!--    /*<![CDATA[*/-->
-<!--    if ("[[${capnhatthanhcong}]]" !== "") {-->
-<!--        alert('[[${capnhatthanhcong}]]');-->
-<!--    }-->
+
+<!--        alert('[[${loginSuccess}]]');-->
+
 <!--    /*]]>*/-->
 <!--</script>-->
 

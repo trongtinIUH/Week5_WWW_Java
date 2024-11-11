@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Comment Bài Viết</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        .post-details, .comment-form, .comments-list {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-form input[type="text"],
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .comment-form button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .comment-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .comments-list .comment-item {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comments-list .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comments-list h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .comments-list p {
+            margin: 5px 0 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<h1>Comment Bài Viết</h1>
+
+<!-- Hiển thị thông tin bài viết -->
+<div class="post-details">
+    <h2 th:text="${post.title}">Tiêu đề bài viết</h2>
+    <p th:text="${post.content}">Nội dung bài viết</p>
+</div>
+
+<!-- Form tạo comment mới -->
+<div class="comment-form">
+    <h3>Viết comment mới</h3>
+    <form th:action="@{/post/comment/add}" method="post">
+        <input type="hidden" th:value="${post.id}" name="postId"/>
+        <div>
+            <label for="commentTitle">Bình luận:</label>
+            <input type="text" id="commentTitle" name="title" required placeholder="Nhập  comment"/>
+        </div>
+
+        <button type="submit">Đăng comment</button>
+    </form>
+</div>
+
+<!-- Hiển thị danh sách comment -->
+<div class="comments-list">
+    <h3>Danh sách comment</h3>
+    <div th:each="comment : ${comments}">
+        <div class="comment-item">
+
+            <h4 th:text="${comment.title}">Tiêu đề comment</h4>
+            <p><small th:text="${#dates.format(comment.createdAt, 'dd-MM-yyyy HH:mm')}">Thời gian</small></p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

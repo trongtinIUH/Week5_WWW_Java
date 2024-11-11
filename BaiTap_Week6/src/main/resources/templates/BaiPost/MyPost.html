@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Danh sách bài viết</title>
+    <title>Danh sách bài viết của tôi</title>
     <link rel="stylesheet" href="/css/style.css">
     <style>
         body {
@@ -94,16 +94,16 @@
 </head>
 <body>
 
-<h1>Danh sách Bài Viết</h1>
-<div style="display: flex;  flex-direction: row;">
+<h1>Danh sách Bài Viết Của Tôi</h1>
+<div style="display: flex; flex-direction: row;">
     <a th:if="${user != null}" th:href="@{/post/create(userId=${user.id})}" class="create-post-link">Tạo bài viết mới</a>
     <a href="/home" class="create-post-link">Quay lại trang chủ</a>
 </div>
 
-<div th:each="post : ${posts}" class="post-container">
+<div th:each="post : ${myList}" class="post-container">
     <!-- Phần Header của bài viết -->
     <div class="post-header">
-        <img style="width: 70px;height: 70px" th:src="${post.getAuthor().getProfile()}" alt="Ảnh đại diện" /> <!-- Thay bằng đường dẫn ảnh đại diện của người dùng -->
+        <img style="width: 80px;height: 80px" th:src="${user.profile}" alt="Ảnh đại diện" /> <!-- Thay bằng đường dẫn ảnh đại diện của người dùng -->
         <div>
             <div class="post-author" th:text="${post.getAuthor().getFirstName()} + ' ' + ${post.getAuthor().getLastName()}">Người đăng</div>
             <div class="post-time" th:text="${#dates.format(post.createdAt, 'dd-MM-yyyy HH:mm:ss')}">Ngày tạo</div>
@@ -118,7 +118,7 @@
 
     <!-- Phần Hành động (Xem comment) -->
     <div class="post-actions">
-        <span th:text="${post.published ? 'Đã đăng' : 'Chưa đăng'}"></span>
+        <span th:text="${post.published ? 'Công Khai' : 'Cá nhân'}"></span>
         <a th:href="@{/post/comment/add(postId=${post.id})}">Xem comment</a>
     </div>
 </div>
