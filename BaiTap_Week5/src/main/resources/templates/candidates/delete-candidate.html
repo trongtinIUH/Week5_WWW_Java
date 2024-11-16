@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Candidate</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      margin-top: 5px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      background-color: #d9534f;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #c9302c;
+    }
+    .message {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .error {
+      color: #d9534f;
+      background: #f2dede;
+      padding: 10px;
+      border: 1px solid #ebccd1;
+      border-radius: 5px;
+    }
+    .success {
+      color: #3c763d;
+      background: #dff0d8;
+      padding: 10px;
+      border: 1px solid #d6e9c6;
+      border-radius: 5px;
+    }
+    .back-home {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #007BFF;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .back-home:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Delete Candidate</h1>
+
+  <!-- Hiển thị thông báo lỗi hoặc thành công -->
+  <div class="message">
+    <p class="error" th:if="${error != null}">[[${error}]]</p>
+    <p class="success" th:if="${message != null}">[[${message}]]</p>
+  </div>
+
+  <form action="/candidate/delete-candidate" method="post">
+    <label for="email">Candidate Email:</label>
+    <input type="email" id="email" name="email" placeholder="Enter candidate's email" required>
+
+    <button type="submit">Delete Candidate</button>
+  </form>
+  <!-- Nút quay lại trang chủ -->
+  <a href="/" class="back-home">Back to Home</a>
+</div>
+</body>
+</html>

@@ -52,4 +52,7 @@ public class Candidate {
     }
 
 
+    public Candidate orElse(Object o) {
+        return null;
+    }
 }

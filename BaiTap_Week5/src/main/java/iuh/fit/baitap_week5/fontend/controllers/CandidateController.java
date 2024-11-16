@@ -1,11 +1,16 @@
 package iuh.fit.baitap_week5.fontend.controllers;
 
+import com.neovisionaries.i18n.CountryCode;
+import iuh.fit.baitap_week5.backend.models.Address;
 import iuh.fit.baitap_week5.backend.models.Candidate;
 import iuh.fit.baitap_week5.backend.models.Job;
 import iuh.fit.baitap_week5.backend.models.Skill;
+import iuh.fit.baitap_week5.backend.reponsitories.AddressRepository;
 import iuh.fit.baitap_week5.backend.reponsitories.CandidateRepository;
+import iuh.fit.baitap_week5.backend.services.AddressServices;
 import iuh.fit.baitap_week5.backend.services.CandidateServices;
 import iuh.fit.baitap_week5.backend.services.JobServices;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,9 +34,76 @@ public class CandidateController {
     private CandidateServices candidateServices;
 
     @Autowired
+    private AddressServices addressServices;
+
+    @Autowired
     private JobServices jonServices;
     @Autowired
     private JobServices jobServices;
+
+    //hiển thị form xóa ứng viên
+    @GetMapping("/candidate/delete-candidate")
+    public String showDeleteCandidateForm() {
+        return "candidates/delete-candidate";
+    }
+
+    @Transactional
+    @PostMapping("/candidate/delete-candidate")
+    public String deleteCandidate(@RequestParam("email") String email, Model model) {
+        Candidate candidate = candidateRepository.findByEmail(email);
+        if (candidate == null) {
+            model.addAttribute("error", "Không tìm thấy ứng viên với email: " + email);
+            return "candidates/delete-candidate";
+        }
+
+        candidateRepository.delete(candidate);
+        model.addAttribute("message", "Candidate deleted successfully!");
+        return "candidates/delete-candidate";
+    }
+
+
+    // Hiển thị form thêm Candidate
+    @GetMapping("/candidate/add-candidate")
+    public String showAddCandidateForm() {
+        return "candidates/add-candidate";
+    }
+
+    @PostMapping("/candidate/add-candidate")
+    public String addCandidate(
+            @RequestParam("fullName") String fullName,
+            @RequestParam("dob") String dob,
+            @RequestParam("street") String street,
+            @RequestParam("city") String city,
+            @RequestParam("country") String country,
+            @RequestParam("number") String number,
+            @RequestParam("zipcode") String zipcode,
+            @RequestParam("phone") String phone,
+            @RequestParam("email") String email,
+            Model model) {
+
+        // Kiểm tra email đã tồn tại
+        if (candidateRepository.findByEmail(email) != null) {
+            model.addAttribute("error", "Email đã tồn tại trong hệ thống.");
+            return "candidates/add-candidate";
+        }
+
+        try {
+            CountryCode countryCode = CountryCode.valueOf(country.toUpperCase());
+            Address address = new Address(street, city, countryCode, number, zipcode);
+
+            addressServices.saveAddress(address);
+
+            Candidate candidate = new Candidate(fullName, LocalDate.parse(dob), address, phone, email);
+            candidateRepository.save(candidate);
+
+            model.addAttribute("message", "Candidate added successfully!");
+        } catch (Exception e) {
+            model.addAttribute("error", "Error adding candidate: " + e.getMessage());
+        }
+
+        return "candidates/add-candidate";
+    }
+
 
     @GetMapping("/listkpt")
     public String showCandidateList(Model model) {

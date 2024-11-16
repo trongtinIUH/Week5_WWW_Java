@@ -3,6 +3,7 @@ package iuh.fit.baitap_week5.backend.services;
 import iuh.fit.baitap_week5.backend.models.Candidate;
 import iuh.fit.baitap_week5.backend.models.Skill;
 import iuh.fit.baitap_week5.backend.reponsitories.CandidateRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CandidateServices {
     @Autowired
     private CandidateRepository candidateRepository;
