@@ -10,7 +10,7 @@ Chạy file SQL đi kèm: Dùng để khởi tạo dữ liệu mẫu ban đầu 
 Cấu hình MariaDB:
 Mở file application.properties và chỉnh sửa thông tin userName và passWord phù hợp với môi trường của bạn.
 Tạo dữ liệu mẫu:
-Trong file LabWeek05Application.java, bỏ chú thích (uncomment) đoạn mã liên quan đến việc khởi tạo 1000 bản ghi vào cơ sở dữ liệu, chạy ứng dụng để thêm dữ liệu mẫu, sau đó có thể đóng chú thích lại.
+Trong file BaiTapWeek5Application.java, bỏ chú thích (uncomment) đoạn mã liên quan đến việc khởi tạo 1000 bản ghi vào cơ sở dữ liệu, chạy ứng dụng để thêm dữ liệu mẫu, sau đó có thể đóng chú thích lại.
 2. Giới thiệu về dự án
 Dự án này xây dựng một trang web tuyển dụng với các chức năng chính sau:
 
