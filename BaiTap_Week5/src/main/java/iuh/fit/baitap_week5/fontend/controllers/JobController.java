@@ -27,7 +27,7 @@ public class JobController {
 
     @GetMapping("/job/post-job")
     public String showPostJobPage() {
-        return "post-job";
+        return "job/post-job";
     }
 
     @PostMapping("/job/create")
@@ -70,6 +70,6 @@ public class JobController {
         jobSkillServices.saveJobSkills(jobSkill);
 
         model.addAttribute("message", "Job created successfully!");
-        return "post-job";
+        return "job/post-job";
     }
 }

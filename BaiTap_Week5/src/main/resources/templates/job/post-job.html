@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post a New Job</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #007bff, #28a745);
+            font-family: Arial, sans-serif;
+            color: #495057;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea.form-control {
+            resize: none;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #007bff;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .btn-success {
+            font-size: 1.1rem;
+            font-weight: bold;
+            background-color: #28a745;
+            border-color: #28a745;
+            padding: 10px 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Post a New Job</h2>
+
+    <!-- Success message -->
+    <div id="successMessage" class="alert alert-success">
+        Job posted successfully!
+    </div>
+
+    <form id="jobForm" method="post" action="/job/create" onsubmit="handleSuccess(event)">
+
+        <!-- Job Name -->
+        <div class="form-group">
+            <label for="jobName">Job Name</label>
+            <input type="text" class="form-control" id="jobName" name="jobName" placeholder="Enter job name" required>
+        </div>
+
+        <!-- Job Description -->
+        <div class="form-group">
+            <label for="jobDesc">Job Description</label>
+            <textarea class="form-control" id="jobDesc" name="jobDesc" rows="4" placeholder="Enter job description" required></textarea>
+        </div>
+
+        <!-- Company Name -->
+        <div class="form-group">
+            <label for="companyName">Company Name</label>
+            <input type="text" class="form-control" id="companyName" name="companyName" placeholder="Enter company name" required>
+        </div>
+
+        <!-- Required Skill Section -->
+        <div class="section-title">Required Skills</div>
+        <div class="form-group">
+            <label for="skillName">Skill Name</label>
+            <input type="text" class="form-control" id="skillName" name="skillName" placeholder="Enter skill name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="skillDescriptions">Skill Description</label>
+            <input type="text" class="form-control" id="skillDescriptions" name="skillDescriptions" placeholder="Enter skill description">
+        </div>
+
+        <div class="form-group">
+            <label for="types">Skill Type</label>
+            <input type="number" class="form-control" id="types" name="types" placeholder="Enter skill type (e.g., 1)" min="1" max="10" required>
+        </div>
+
+        <div class="form-group">
+            <label for="skillLevels">Skill Level</label>
+            <input type="number" class="form-control" id="skillLevels" name="skillLevels" placeholder="Enter skill level (1-10)" min="1" max="10" required>
+        </div>
+
+        <div class="form-group">
+            <label for="moreInfos">More Information</label>
+            <input type="text" class="form-control" id="moreInfos" name="moreInfos" placeholder="Enter additional information">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100">Post Job</button>
+    </form>
+</div>
+
+<script>
+    function handleSuccess(event) {
+        event.preventDefault();
+        const successMessage = document.getElementById('successMessage');
+        successMessage.style.display = 'block';
+
+        // Clear the form
+        const form = document.getElementById('jobForm');
+        form.reset();
+
+        // Hide the success message after 3 seconds
+        setTimeout(() => {
+            successMessage.style.display = 'none';
+        }, 3000);
+    }
+</script>
+</body>
+</html>

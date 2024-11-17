@@ -30,9 +30,9 @@ public class Skill {
 
     }
 
-    public Skill(String skillDescription, String skillName, Byte type) {
-        this.skillDescription = skillDescription;
+    public Skill(String skillName,String skillDescription, Byte type) {
         this.skillName = skillName;
+        this.skillDescription = skillDescription;
         this.type = type;
     }
 }
