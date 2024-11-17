@@ -14,19 +14,11 @@ Tạo dữ liệu mẫu:
 Trong file BaiTapWeek5Application.java, bỏ chú thích (uncomment) đoạn mã liên quan đến việc khởi tạo 1000 bản ghi vào cơ sở dữ liệu, chạy ứng dụng để thêm dữ liệu mẫu, sau đó có thể đóng chú thích lại.
 
 #### 2. Giới thiệu về dự án
-Dự án này xây dựng một trang web tuyển dụng với các chức năng chính sau:
-
-Trang chủ (http://localhost:8080):
-
+Dự án này xây dựng một trang web tuyển dụng với các chức năng chính sau:Trang chủ (http://localhost:8080):
 Hiển thị các công việc được đăng bởi các công ty tuyển dụng.
 Ứng tuyển: (Chức năng này đang được phát triển).
 Quản lý ứng viên:
-
-Danh sách ứng viên:
-Hiển thị danh sách ứng viên ở dạng có phân trang và không phân trang.
-Thêm ứng viên mới.
-Xóa ứng viên: (Không khuyến khích sử dụng).
-Chỉnh sửa thông tin ứng viên.
+Danh sách ứng viên:Hiển thị danh sách ứng viên ở dạng có phân trang và không phân trang. Thêm ứng viên mới. Xóa ứng viên: (Không khuyến khích sử dụng). Chỉnh sửa thông tin ứng viên.
 Ứng viên đăng nhập:
 Đăng nhập bằng email.
 Gợi ý kỹ năng: Đề xuất các kỹ năng ứng viên chưa có để thêm vào.
